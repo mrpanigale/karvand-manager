@@ -1,0 +1,24 @@
+{
+    "bootcamp": {
+        "title": "Karvand Python",
+        "year": "2026"
+    },
+    "karvands": [
+        {
+            "id": 1,
+            "full_name": "amir mahdi Tabatabaei",
+            "city": "Tehran",
+            "education": {
+                "degree": "Bachelor",
+                "field": "Computer Engineering"
+            },
+            "skills": [
+                {
+                    "name": "Python",
+                    "level": "beginner",
+                    "score": 70
+                }
+            ]
+        }
+    ]
+}
