@@ -144,7 +144,30 @@ def show_karvand(path: str):
 
         print(f"{'-'*40}")
 
+# ========================================================================
+# search karvand function✔️
+def search_karvand(path: str, user_id: int):
+    '''This function will find karvand by ID'''
+    karvands_dictionary = json_reader(path)['karvands']
+    for karvand in karvands_dictionary:
+        if karvand['id'] == user_id:
+            print(f"🆔 ID: {karvand.get('id')}")
+            print(f"👤 Name: {karvand.get('full_name')}")
+            print(f"📍 City: {karvand.get('city')}")
 
+            edu = karvand.get("education", {})
+            print(f"📚 Education: {edu.get('degree')} in {edu.get('field')}")
+
+            print("🛠  Skills:")
+            for skill in karvand.get("skills", []):
+                print(
+                    f"   - {skill.get('name')} | Level: {skill.get('level')} | Score: {skill.get('score')}"
+                )
+
+            print(f"{'-'*40}")
+            return None
+    print(f"karvands with  <id : {user_id}> not found")
+    
 # ========================================================================
 # delet karvand function✔️
 def delet_karvand(path: str, user_id: int):
@@ -266,7 +289,7 @@ def generate_karvand_report(
 
 while True:
     # flag
-    flag = input("1.Add 2.edit 3.show 4.delet 5.report 6.exit: ")
+    flag = input("1.Add 2.edit 3.show 4.delet 5.report 6.search 7.exit: ")
     # options
     # add✔️
     if flag == "1":
@@ -292,7 +315,7 @@ while True:
             path=path,
         )
 
-    # edit
+    # edit✔️
     elif flag == "2":
         show_karvand(path=path)
         print("from the list find the user id that you are looking for: ")
@@ -303,24 +326,33 @@ while True:
             user_id = int(input("Enter user id"))
 
         edit_karvand(path=path, user_id=user_id)
-    # show
+    # show✔️
     elif flag == "3":
         show_karvand(path=path)
-    # delet
+    # delet✔️
     elif flag == "4":
         try:
-            user_id = int(input("Enter user id"))
+            user_id = int(input("Enter user id: "))
             delet_karvand(path, user_id)
         except ValueError:
             print("Only numeric value for id !!!!")
-            user_id = int(input("Enter user id"))
+            user_id = int(input("Enter user id: "))
             delet_karvand(path, user_id)
-    # report
+    # report✔️
     elif flag == "5":
         report_karvands(path=path)
-    # exit✔️
+    # search id
     elif flag == "6":
+        try:
+            user_id = int(input("Enter user id: "))
+            search_karvand(path, user_id)
+        except ValueError:
+            print("Only numeric value for id !!!!")
+            user_id = int(input("Enter user id: "))
+            search_karvand(path, user_id)
+    # exit✔️
+    elif flag == "7":
         break
-    # unknown input
+    # unknown input✔️
     else:
         print("Unknown input!")
