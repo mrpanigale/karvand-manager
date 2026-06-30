@@ -1,5 +1,5 @@
 """This is a CLI karvand manager that you can input Your command with a while loop , and each task has its function """
-
+APP_TITLE = 'Karvand Manager'
 # imports✔️
 # json library will be use for work with json file
 import json
