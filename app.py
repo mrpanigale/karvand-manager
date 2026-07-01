@@ -10,7 +10,7 @@ import os
 # ========================================================================
 # karvands.json path ✔️
 path = r"E:\MLprojects\karvand-manager\karvand-manager\data\karvands.json"
-
+directory = r"E:\MLprojects\karvand-manager\karvand-manager\data"
 # ========================================================================
 # add karvand function✔️
 
@@ -286,7 +286,8 @@ def generate_karvand_report(
 # ========================================================================
 
 # loop user control panel✔️
-
+if not os.path.exists(directory):
+    os.makedirs(directory)
 while True:
     # flag
     flag = input("1.Add 2.edit 3.show 4.delet 5.report 6.search 7.exit: ")
