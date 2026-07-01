@@ -190,6 +190,7 @@ def report_karvands(path: str):
     """This function will tell us how many karvands exist in Bootcamp."""
     karvands = json_reader(path)["karvands"]
     print(f"\n🟰🟰🟰🟰🟰🟰\n{len(karvands)} karvands exist in This Bootcamp!\n🟰🟰🟰🟰🟰🟰")
+    
 
 
 # ========================================================================
