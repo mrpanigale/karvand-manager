@@ -144,13 +144,14 @@ def show_karvand(path: str):
 
         print(f"{'-'*40}")
 
+
 # ========================================================================
 # search karvand function✔️
 def search_karvand(path: str, user_id: int):
-    '''This function will find karvand by ID'''
-    karvands_dictionary = json_reader(path)['karvands']
+    """This function will find karvand by ID"""
+    karvands_dictionary = json_reader(path)["karvands"]
     for karvand in karvands_dictionary:
-        if karvand['id'] == user_id:
+        if karvand["id"] == user_id:
             print(f"🆔 ID: {karvand.get('id')}")
             print(f"👤 Name: {karvand.get('full_name')}")
             print(f"📍 City: {karvand.get('city')}")
@@ -167,7 +168,8 @@ def search_karvand(path: str, user_id: int):
             print(f"{'-'*40}")
             return None
     print(f"karvands with  <id : {user_id}> not found")
-    
+
+
 # ========================================================================
 # delet karvand function✔️
 def delet_karvand(path: str, user_id: int):
@@ -189,8 +191,36 @@ def delet_karvand(path: str, user_id: int):
 def report_karvands(path: str):
     """This function will tell us how many karvands exist in Bootcamp."""
     karvands = json_reader(path)["karvands"]
-    print(f"\n🟰🟰🟰🟰🟰🟰\n{len(karvands)} karvands exist in This Bootcamp!\n🟰🟰🟰🟰🟰🟰")
-    
+    count_karvands = len(karvands)
+    # count of skills
+    skills_set = set()
+    for karvand in karvands:
+        skills_set.add(karvand["skills"][0]["name"])
+    # avg of skills score
+    scores_list = []
+    for karvand in karvands:
+        scores_list.append(karvand["skills"][0]["score"])
+    avg_score = sum(scores_list) / len(scores_list) if scores_list else 0    # list of cities
+    cities_set = set()
+    for karvand in karvands:
+        cities_set.add(karvand["city"])
+
+    report = f"""\n🟰🟰🟰🟰🟰🟰\n{count_karvands} karvands exist in This Bootcamp!\n🟰🟰🟰🟰🟰🟰
+\n🟰🟰🟰🟰🟰🟰\n{len(skills_set)} skills exist in This Bootcamp!\n🟰🟰🟰🟰🟰🟰
+\n🟰🟰🟰🟰🟰🟰\n{skills_set} skills exist in This Bootcamp!\n🟰🟰🟰🟰🟰🟰
+\n🟰🟰🟰🟰🟰🟰\n{avg_score} is average score in This Bootcamp!\n🟰🟰🟰🟰🟰🟰
+\n🟰🟰🟰🟰🟰🟰\n{cities_set} cities that exist in This Bootcamp!\n🟰🟰🟰🟰🟰🟰"""
+    print(report)
+    create_json(
+        karvand={
+            "count_karvands": count_karvands,
+            "count_skills": len(list(skills_set)),
+            "skills": list(skills_set),
+            "average_score": avg_score,
+            "cities_set": list(cities_set),
+        },
+        path=r"E:\MLprojects\karvand-manager\karvand-manager\data\report.json",
+    )
 
 
 # ========================================================================
@@ -244,7 +274,7 @@ def input_identity():
     while True:
         try:
             skill_score = int(input("\nskill score (like 70): "))
-            if 0<= skill_score <=100:
+            if 0 <= skill_score <= 100:
                 break
             else:
                 raise
@@ -253,13 +283,15 @@ def input_identity():
 
     return user_id, full_name, city, degree, field, skill_name, skill_level, skill_score
 
+
 # ========================================================================
-# search karvand by skill 
-def search_skill(path,skill_name):
-    '''This function will find karvand by skill'''
-    karvands_dictionary = json_reader(path)['karvands']
+# search karvand by skill
+def search_skill(path, skill_name):
+    """This function will find karvand by skill"""
+    karvands_dictionary = json_reader(path)["karvands"]
+    if_true=0
     for karvand in karvands_dictionary:
-        if karvand['skills'][0]['name'] == skill_name:
+        if karvand["skills"][0]["name"] == skill_name:
             print(f"🆔 ID: {karvand.get('id')}")
             print(f"👤 Name: {karvand.get('full_name')}")
             print(f"📍 City: {karvand.get('city')}")
@@ -274,8 +306,11 @@ def search_skill(path,skill_name):
                 )
 
             print(f"{'-'*40}")
-            return None
-    print(f"karvands with  <skill : {skill_name}> not found")
+            if_true+=1
+    if if_true == 0:
+        print(f"karvands with  <skill : {skill_name}> not found")
+
+
 # ========================================================================
 # generate karavands data✔️
 def generate_karvand_report(
@@ -316,7 +351,9 @@ if not os.path.exists(directory):
     os.makedirs(directory)
 while True:
     # flag
-    flag = input("1.Add 2.edit 3.show 4.delet 5.report 6.search by id 7.search by skill 8.exit: ")
+    flag = input(
+        "1.Add 2.edit 3.show 4.delet 5.report 6.search by id 7.search by skill 8.exit: "
+    )
     # options
     # add✔️
     if flag == "1":
@@ -377,10 +414,10 @@ while True:
             print("Only numeric value for id !!!!")
             user_id = int(input("Enter user id: "))
             search_karvand(path, user_id)
-    # skill search 
-    elif flag == '7':
+    # skill search
+    elif flag == "7":
         skill_input = input("Enter skill name like Python: ").title()
-        search_skill(path,skill_input)
+        search_skill(path, skill_input)
     # exit✔️
     elif flag == "8":
         break
