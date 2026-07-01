@@ -243,9 +243,12 @@ def input_identity():
     while True:
         try:
             skill_score = int(input("\nskill score (like 70): "))
-            break
+            if 0<= skill_score <=100:
+                break
+            else:
+                raise
         except ValueError:
-            print("only numeric value for score!")
+            print("only numeric value for score! and range from 0 to 100")
 
     return user_id, full_name, city, degree, field, skill_name, skill_level, skill_score
 
