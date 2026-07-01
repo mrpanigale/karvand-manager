@@ -1,0 +1,13 @@
+{
+    "count_karvands": 2,
+    "count_skills": 2,
+    "skills": [
+        "Python",
+        "Java"
+    ],
+    "average_score": 85.0,
+    "cities_set": [
+        "Tehran",
+        "shiraz"
+    ]
+}

@@ -19,6 +19,22 @@
                     "score": 70
                 }
             ]
+        },
+        {
+            "id": 2,
+            "full_name": "reza",
+            "city": "shiraz",
+            "education": {
+                "degree": "Bachelor",
+                "field": "Computer Engineering"
+            },
+            "skills": [
+                {
+                    "name": "Java",
+                    "level": "beginner",
+                    "score": 100
+                }
+            ]
         }
     ]
 }
