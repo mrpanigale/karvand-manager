@@ -253,7 +253,29 @@ def input_identity():
 
     return user_id, full_name, city, degree, field, skill_name, skill_level, skill_score
 
+# ========================================================================
+# search karvand by skill 
+def search_skill(path,skill_name):
+    '''This function will find karvand by skill'''
+    karvands_dictionary = json_reader(path)['karvands']
+    for karvand in karvands_dictionary:
+        if karvand['skills'][0]['name'] == skill_name:
+            print(f"🆔 ID: {karvand.get('id')}")
+            print(f"👤 Name: {karvand.get('full_name')}")
+            print(f"📍 City: {karvand.get('city')}")
 
+            edu = karvand.get("education", {})
+            print(f"📚 Education: {edu.get('degree')} in {edu.get('field')}")
+
+            print("🛠  Skills:")
+            for skill in karvand.get("skills", []):
+                print(
+                    f"   - {skill.get('name')} | Level: {skill.get('level')} | Score: {skill.get('score')}"
+                )
+
+            print(f"{'-'*40}")
+            return None
+    print(f"karvands with  <skill : {skill_name}> not found")
 # ========================================================================
 # generate karavands data✔️
 def generate_karvand_report(
@@ -294,7 +316,7 @@ if not os.path.exists(directory):
     os.makedirs(directory)
 while True:
     # flag
-    flag = input("1.Add 2.edit 3.show 4.delet 5.report 6.search 7.exit: ")
+    flag = input("1.Add 2.edit 3.show 4.delet 5.report 6.search by id 7.search by skill 8.exit: ")
     # options
     # add✔️
     if flag == "1":
@@ -355,8 +377,12 @@ while True:
             print("Only numeric value for id !!!!")
             user_id = int(input("Enter user id: "))
             search_karvand(path, user_id)
+    # skill search 
+    elif flag == '7':
+        skill_input = input("Enter skill name like Python: ").title()
+        search_skill(path,skill_input)
     # exit✔️
-    elif flag == "7":
+    elif flag == "8":
         break
     # unknown input✔️
     else:
